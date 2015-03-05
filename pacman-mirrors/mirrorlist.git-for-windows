@@ -1,0 +1,5 @@
+##
+## Git for Windows repository mirrorlist
+##
+
+Server = https://$repo.github.io/pacman-repository/$arch
