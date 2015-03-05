@@ -15,7 +15,7 @@ source=(mirrorlist.msys
 md5sums=('10c41f4ee4ad3960019bb48784c26730'
          'e230746bde386bc95302a81a877d1e1e'
          'd37c2432da0cf0aa26e19f40493a3ed0'
-         'c01556c664e4ab8b4765a987ae6425a9')
+         '69bd3a4de8fb5402733db3948ddd8a1c')
 
 package() {
   mkdir -p $pkgdir/etc/pacman.d
