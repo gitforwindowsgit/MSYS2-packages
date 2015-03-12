@@ -10,14 +10,17 @@ license=('GPL')
 groups=('base')
 source=(mirrorlist.msys
         mirrorlist.mingw32
-        mirrorlist.mingw64)
-md5sums=('7345ff18b39270ace484d63dfeccdbd0'
-         'e2034a18476ec4126324c2a6ae6d880a'
-         'd5c821bfbe1c798870425f57d2bceacb')
+        mirrorlist.mingw64
+        mirrorlist.git-for-windows)
+md5sums=('10c41f4ee4ad3960019bb48784c26730'
+         'e230746bde386bc95302a81a877d1e1e'
+         'd37c2432da0cf0aa26e19f40493a3ed0'
+         '69bd3a4de8fb5402733db3948ddd8a1c')
 
 package() {
   mkdir -p $pkgdir/etc/pacman.d
   install -m644 $srcdir/mirrorlist.msys $pkgdir/etc/pacman.d/
   install -m644 $srcdir/mirrorlist.mingw32 $pkgdir/etc/pacman.d/
   install -m644 $srcdir/mirrorlist.mingw64 $pkgdir/etc/pacman.d/
+  install -m644 $srcdir/mirrorlist.git-for-windows $pkgdir/etc/pacman.d/
 }

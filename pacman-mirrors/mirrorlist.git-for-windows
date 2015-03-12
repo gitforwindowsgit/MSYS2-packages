@@ -1,0 +1,8 @@
+##
+## Git for Windows repository mirrorlist
+##
+
+Server = https://dl.bintray.com/$repo/pacman/mingw/$arch
+Server = https://dl.bintray.com/$repo/pacman/msys2/$arch
+
+Server = https://$repo.github.io/pacman-repository/$arch
