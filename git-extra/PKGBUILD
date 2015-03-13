@@ -2,13 +2,13 @@
 
 pkgname=('git-extra')
 _ver_base=1.0
-pkgver=1.0.29.d079bbd
+pkgver=1.0.33.eab2803
 pkgrel=1
 pkgdesc="Git for Windows extra files"
 arch=('i686' 'x86_64')
-url=""
+url="https://github.com/git-for-windows/MSYS2-packages/tree/master/git-extra"
 license=('GPL')
-groups=('base')
+groups=('VCS')
 depends=('vim')
 source=('git-extra'::'git+https://github.com/git-for-windows/build-extra')
 md5sums=('SKIP')
@@ -41,10 +41,6 @@ build() {
 }
 
 package() {
-  pkgdesc="Git for Windows extra files"
-  groups=('base')
-  options=('!strip')
-  
   install -d -m755 $pkgdir/etc/profile.d
   install -d -m755 $pkgdir/usr/bin
   install -m755 $srcdir/$pkgname/vimrc $pkgdir/etc
