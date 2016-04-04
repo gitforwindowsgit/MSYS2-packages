@@ -1,11 +1,9 @@
-# Maintainer: 
+# Maintainer: Paladox <thomasmulhall410@yahoo.com>
 
 pkgname=('arcanist')
 pkgdesc="Command line interface for Phabricator"
 arch=('i686' 'x86_64')
-url="https://secure.phabricator.com/book/phabricator/article/arcanist/"
-makedepends=('libcrypt-devel' 'libuuid-devel')
-options=('!libtool')
+url="https://phabricator.com"
 license=('APACHE')
 source=(https://github.com/phacility/arcanist/archive/master.zip)
 
@@ -26,20 +24,9 @@ build() {
       ac_cv_header_winsock2_h=no
 
   make
-  make DESTDIR="${srcdir}/dest" install
 }
-
-/*
-check() {
-  cd "${srcdir}/apr-${pkgver}"
-  make -j1 check
-}
-/*
 
 package_arcanist_arcanist() {
-  depends=('libcrypt' 'libuuid')
-  groups=('libraries')
-
   mkdir -p ${pkgdir}/usr/{bin,share}
   cp -f ${srcdir}/dest/usr/bin/*.dll ${pkgdir}/usr/bin/
   #cp -rf ${srcdir}/dest/usr/share/doc ${pkgdir}/usr/share/
