@@ -1,0 +1,33 @@
+# Maintainer: Paladox <thomasmulhall410@yahoo.com>
+
+pkgname=('arcanist')
+pkgdesc="Command line interface for Phabricator"
+arch=('i686' 'x86_64')
+url="https://phabricator.com"
+license=('APACHE')
+source=(https://github.com/phacility/arcanist/archive/master.zip)
+
+prepare() {
+  cd "${srcdir}/arcanist/arcanist"
+
+  autoreconf -fi
+}
+
+build() {
+  cd "${srcdir}/arcanist/arcanist"
+  ./configure --build=${CHOST} \
+      --prefix=/usr \
+      --libexecdir=/usr/lib/arcanist/arcanist/bin \
+      --datadir=/usr/share/arcanist/arcanist \
+      --enable-layout=Debian \
+      ac_cv_header_windows_h=no \
+      ac_cv_header_winsock2_h=no
+
+  make
+}
+
+package_arcanist_arcanist() {
+  mkdir -p ${pkgdir}/usr/{bin,share}
+  cp -f ${srcdir}/dest/usr/bin/*.dll ${pkgdir}/usr/bin/
+  #cp -rf ${srcdir}/dest/usr/share/doc ${pkgdir}/usr/share/
+}
