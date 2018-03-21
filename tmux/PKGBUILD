@@ -3,6 +3,7 @@
 pkgname=tmux
 pkgver=2.6
 pkgrel=1
+epoch=1
 pkgdesc='A terminal multiplexer'
 url='https://tmux.github.io/'
 arch=('i686' 'x86_64')

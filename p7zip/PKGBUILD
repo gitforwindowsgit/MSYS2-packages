@@ -3,6 +3,7 @@
 pkgname=p7zip
 pkgver=16.02
 pkgrel=1
+epoch=1
 pkgdesc='Command-line version of the 7zip compressed file archiver'
 url='https://p7zip.sourceforge.io/'
 license=('GPL' 'custom')

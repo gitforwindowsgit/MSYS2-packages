@@ -5,6 +5,7 @@
 pkgname=pacman
 pkgver=5.0.1
 pkgrel=5
+epoch=1
 pkgdesc="A library-based package manager with dependency support (MSYS2 port)"
 arch=('i686' 'x86_64')
 url="https://www.archlinux.org/pacman/"

@@ -6,6 +6,7 @@ _basever=7.0
 _patchlevel=003 #prepare for some patches
 pkgver=${_basever}.${_patchlevel}
 pkgrel=1
+epoch=1
 pkgdesc="GNU readline library"
 arch=('i686' 'x86_64')
 url="https://tiswww.case.edu/php/chet/readline/rltop.html"

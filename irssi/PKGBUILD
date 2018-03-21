@@ -7,6 +7,7 @@ replaces=(irssi-git)
 conflicts=(irssi-git)
 pkgver=1.0.2
 pkgrel=1
+epoch=1
 pkgdesc="Modular text mode IRC client with Perl scripting"
 arch=('i686' 'x86_64')
 url="https://irssi.org/"

@@ -5,6 +5,7 @@ _ver=56c
 # use a pacman compatible version scheme
 pkgver=${_ver/[a-z]/.${_ver//[0-9.]/}}
 pkgrel=1
+epoch=1
 pkgdesc="The MirBSD Korn Shell"
 arch=("i686" "x86_64")
 url="https://www.mirbsd.org/mksh.htm"
