@@ -4,6 +4,7 @@ _realname=TermReadKey
 pkgname=perl-${_realname}
 pkgver=2.37
 pkgrel=2
+epoch=1
 pkgdesc="Provides simple control over terminal driver modes"
 arch=('i686' 'x86_64')
 license=('custom')

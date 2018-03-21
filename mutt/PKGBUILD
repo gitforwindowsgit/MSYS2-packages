@@ -4,6 +4,7 @@
 pkgname=mutt
 pkgver=1.9.3
 pkgrel=1
+epoch=1
 pkgdesc='Small but very powerful text-based mail client (net-utils)'
 url='http://www.mutt.org/'
 license=('GPL')

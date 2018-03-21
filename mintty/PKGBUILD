@@ -3,7 +3,7 @@
 pkgname=mintty
 pkgver=2.8.4
 pkgrel=1
-epoch=1
+epoch=2
 pkgdesc="Terminal emulator with native Windows look and feel"
 arch=('i686' 'x86_64')
 license=('GPL3')

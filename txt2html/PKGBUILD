@@ -4,6 +4,7 @@
 pkgname=txt2html
 pkgver=2.5201
 pkgrel=1
+epoch=1
 pkgdesc="Convert plain text files to HTML"
 arch=('i686' 'x86_64')
 url="http://txt2html.sourceforge.net/"

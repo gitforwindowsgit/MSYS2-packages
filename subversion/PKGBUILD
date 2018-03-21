@@ -3,6 +3,7 @@
 pkgname=subversion
 pkgver=1.9.7
 pkgrel=3
+epoch=1
 pkgdesc="A Modern Concurrent Version Control System"
 arch=('i686' 'x86_64')
 url="https://subversion.apache.org/"

@@ -4,6 +4,7 @@ pkgbase='libpsl'
 pkgname=("${pkgbase}" "${pkgbase}-devel")
 pkgver=0.19.1
 pkgrel=1
+epoch=1
 pkgdesc='Public Suffix List library'
 url='https://github.com/rockdaboot/libpsl'
 arch=('i686' 'x86_64')

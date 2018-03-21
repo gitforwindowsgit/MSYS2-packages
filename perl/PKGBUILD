@@ -4,6 +4,7 @@ pkgname=perl
 pkgver=5.26.1
 _gccver=6.3.0
 pkgrel=3
+epoch=1
 pkgdesc="A highly capable, feature-rich programming language"
 arch=(i686 x86_64)
 license=('GPL')

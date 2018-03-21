@@ -9,6 +9,7 @@ if [ -n "${_patchlevel}" ]; then
 fi
 #pkgver=${_pkgver}
 pkgrel=1
+epoch=1
 pkgdesc="Multiple-precision floating-point library"
 arch=('i686' 'x86_64')
 url="http://www.mpfr.org/"

@@ -3,6 +3,7 @@
 pkgname=tig
 pkgver=2.3.3
 pkgrel=1
+epoch=1
 pkgdesc='Text-mode interface for Git'
 depends=('git' 'libreadline' 'ncurses')
 makedepends=('asciidoc' 'xmlto' 'libreadline-devel' 'ncurses-devel' 'libiconv-devel')
