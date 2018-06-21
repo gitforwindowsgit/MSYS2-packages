@@ -1,0 +1,22 @@
+From ad2349a2b91f11c4a7276636951a550308b4e66c Mon Sep 17 00:00:00 2001
+From: Clemens Buchacher <drizzd@gmx.net>
+Date: Thu, 21 Jun 2018 19:37:01 +0200
+Subject: [PATCH] enable CBC ciphers
+
+Signed-off-by: Clemens Buchacher <drizzd@gmx.net>
+---
+ ssh_config | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/ssh_config b/ssh_config
+index c12f5ef..2d5730a 100644
+--- a/ssh_config
++++ b/ssh_config
+@@ -44,3 +44,4 @@
+ #   VisualHostKey no
+ #   ProxyCommand ssh -q -W %h:%p gateway.example.com
+ #   RekeyLimit 1G 1h
++Ciphers +aes128-cbc,3des-cbc,aes256-cbc,aes192-cbc
+-- 
+2.17.1
+

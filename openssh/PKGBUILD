@@ -2,7 +2,7 @@
 
 pkgname=openssh
 pkgver=7.7p1
-pkgrel=1
+pkgrel=2
 pkgdesc='Free version of the SSH connectivity tools'
 url='http://www.openssh.org/portable.html'
 license=('custom:BSD')
@@ -14,13 +14,15 @@ source=("https://cloudflare.cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/${pkgna
         openssh-7.3p1-msys2.patch
         openssh-7.3p1-msys2-setkey.patch
         openssh-7.3p1-msys2-skip-privsep-tests.patch
-        openssh-7.3p1-msys2-drive-name-in-path.patch)
+        openssh-7.3p1-msys2-drive-name-in-path.patch
+        openssh-7.7p1-msys2-enable-cbc-ciphers.patch)
 sha256sums=('d73be7e684e99efcd024be15a30bffcbe41b012b2f7b3c9084aed621775e6b8f'
             'SKIP'
             'ab54293758c908bfdcd95b338bad5eb35290291e957dc99bc09fae4f906987fc'
             '25079cf4a10c1ab70d60302bccaabee513762520dffd7c35285f7aae3ea36087'
             '729aa8ef3723a223afbd1bda678a7deaca75b5c3b42a74b1a8c396f95f8677b5'
-            '903b3eee51e492a125cab9c724ad967450307d53e457f025e4432b81cb145af5')
+            '903b3eee51e492a125cab9c724ad967450307d53e457f025e4432b81cb145af5'
+            '9cd4ee41128ef877ec5f939f2d109b81a3d8942ed9094993a8dc579dd0f91cbb')
 validpgpkeys=('59C2118ED206D927E667EBE3D3E5F56B6D920D30')
 
 backup=('etc/ssh/ssh_config')
@@ -31,6 +33,7 @@ prepare() {
   patch -p1 -i ${srcdir}/openssh-7.3p1-msys2-setkey.patch
   patch -p1 -i ${srcdir}/openssh-7.3p1-msys2-skip-privsep-tests.patch
   patch -p1 -i ${srcdir}/openssh-7.3p1-msys2-drive-name-in-path.patch
+  patch -p1 -i ${srcdir}/openssh-7.7p1-msys2-enable-cbc-ciphers.patch
   autoreconf -fvi
 }
 
