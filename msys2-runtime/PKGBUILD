@@ -231,8 +231,10 @@ build() {
     OPTIM="-O2"
   fi
 
-  CFLAGS="$OPTIM -pipe -ggdb"
-  CXXFLAGS="$OPTIM -pipe -ggdb"
+  # Debug settings for cv2pdb based on discussion in this issue:
+  # https://github.com/rainers/cv2pdb/issues/30
+  CFLAGS="$OPTIM -pipe -gdwarf-2 -gstrict-dwarf -fno-omit-frame-pointer"
+  CXXFLAGS="$OPTIM -pipe -gdwarf-2 -gstrict-dwarf -fno-omit-frame-pointer"
 
   "${srcdir}"/msys2-runtime/configure \
     --prefix=/usr \
