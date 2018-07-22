@@ -1,0 +1,80 @@
+From 93291a3f7cbcd9e4d08ec76049dae2bcf29ae92c Mon Sep 17 00:00:00 2001
+From: Dakota Hawkins <dakotahawkins@gmail.com>
+Date: Fri, 13 Jul 2018 00:08:55 -0400
+Subject: [PATCH 58/N] Split .pdb generation into separate files
+
+Modified .dll and .pdb are placed in windebug subfolder.
+
+Fixes git-for-windows/git#356
+
+Signed-off-by: Dakota Hawkins <dakotahawkins@gmail.com>
+---
+ winsup/cygwin/Makefile.in | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/winsup/cygwin/Makefile.in b/winsup/cygwin/Makefile.in
+index 315ef7c..6be8ef4 100644
+--- a/winsup/cygwin/Makefile.in
++++ b/winsup/cygwin/Makefile.in
+@@ -587,12 +587,14 @@ install: install-libs install-headers install-man install-ldif install_target \
+ uninstall: uninstall-libs uninstall-headers uninstall-man
+ 
+ install-libs: $(TARGET_LIBS)
+-	@$(MKDIRP) $(DESTDIR)$(bindir)
++	@$(MKDIRP) $(DESTDIR)$(bindir)/windebug
+ 	$(INSTALL_PROGRAM) $(TEST_DLL_NAME) $(DESTDIR)$(bindir)/$(DLL_NAME); \
+ 	for i in $^; do \
+ 	    $(INSTALL_DATA) $$i $(DESTDIR)$(tooldir)/lib/`basename $$i` ; \
+-	done
+-	$(INSTALL_DATA) msys-2.0.pdb $(DESTDIR)$(bindir)/msys-2.0.pdb
++	done; \
++	for i in windebug/*.* ; do \
++	    $(INSTALL_DATA) $$i $(DESTDIR)$(bindir)/windebug/`basename $$i` ; \
++	done; \
+ 	cd $(DESTDIR)$(tooldir)/lib && ln -sf libmsys-2.0.a libg.a
+ 
+ install-headers:
+@@ -630,6 +632,7 @@ install_host:
+ 
+ uninstall-libs: $(TARGET_LIBS)
+ 	rm -f $(bindir)/$(DLL_NAME); \
++	rm -fr $(bindir)/windebug; \
+ 	for i in $^; do \
+ 	    rm -f $(tooldir)/lib/$$i ; \
+ 	done
+@@ -658,7 +661,8 @@ uninstall-man:
+ 	done
+ 
+ clean distclean realclean:
+-	-rm -f *.o *.dll *.pdb *.a *.exp junk *.base version.cc *.exe *.d *stamp* *_magic.h sigfe.s msys.def globals.h
++	-rm -f *.o *.dll *.a *.exp junk *.base version.cc *.exe *.d *stamp* *_magic.h sigfe.s msys.def globals.h
++	-rm -fr windebug
+ 	-@$(MAKE) -C ${cygserver_blddir} libclean
+ 
+ maintainer-clean: clean
+@@ -672,7 +676,7 @@ $(LDSCRIPT): $(LDSCRIPT).in
+ 	$(CC) -E - -P < $^ -o $@
+ 
+ # Rule to build msys-2.0.dll
+-$(TEST_DLL_NAME): $(LDSCRIPT) $(DLL_OFILES) $(LIBSERVER) $(LIBC) $(LIBM) $(API_VER) Makefile $(VERSION_OFILES)
++$(TEST_DLL_NAME): $(LDSCRIPT) dllfixdbg $(DLL_OFILES) $(LIBSERVER) $(LIBC) $(LIBM) $(API_VER) Makefile $(VERSION_OFILES)
+ 	$(CXX) $(CXXFLAGS) \
+ 	-mno-use-libstdc-wrappers -L${WINDOWS_LIBDIR} \
+ 	-Wl,--gc-sections $(nostdlib) -Wl,-T$(firstword $^) -static \
+@@ -680,9 +684,12 @@ $(TEST_DLL_NAME): $(LDSCRIPT) $(DLL_OFILES) $(LIBSERVER) $(LIBC) $(LIBM) $(API_V
+ 	-e $(DLL_ENTRY) $(DEF_FILE) $(DLL_OFILES) $(VERSION_OFILES) \
+ 	$(MALLOC_OBJ) $(LIBSERVER) $(LIBM) $(LIBC) \
+ 	-lgcc $(DLL_IMPORTS) -Wl,-Map,msys.map
++	@mkdir windebug
+ 	MINGW_PREFIX=/mingw32 && \
+ 	case "$$(uname -m)" in x86_64) MINGW_PREFIX=/mingw64;; esac && \
+-	$$MINGW_PREFIX/bin/cv2pdb "$@" "$@" ${patsubst %0.dll,%-2.0.pdb,$@}
++	$$MINGW_PREFIX/bin/cv2pdb "$@" "windebug/${patsubst %0.dll,%-2.0.dll,$@}" windebug/${patsubst %0.dll,%-2.0.pdb,$@}
++	@$(word 2,$^) $(OBJDUMP) $(OBJCOPY) $@ ${patsubst %0.dll,%-2.0.dbg,$@}
++	@rm -f ${patsubst %0.dll,%-2.0.dbg,$@}
+ 	@ln -f $@ new-$(DLL_NAME)
+ 
+ # Rule to build libmsys-2.0.a
+-- 
+2.9.0
+

@@ -81,7 +81,8 @@ source=('msys2-runtime'::git://sourceware.org/git/newlib-cygwin.git#tag=cygwin-$
         0054-fixup-kill-kill-Win32-processes-more-gently.patch
         0055-srandomdev-avoid-warning-about-uninitialized-use.patch
         0056-squash-Fix-incorrect-path-conversion-trailing-slash.patch
-        0057-Cygwin-Fixing-the-math-behind-rounding-down-ch.stack.patch)
+        0057-Cygwin-Fixing-the-math-behind-rounding-down-ch.stack.patch
+        0058-Split-.pdb-generation-into-separate-files.patch)
 sha256sums=('SKIP'
             '2a77753affdcf800acf208cb50f5c8008a7ea868209a6871247a7b2228685e0d'
             '0ce1b1cc6ce1a98fa07be518b0c7b2a005a5e22910f3c3fe7f7ff7bb59bafb98'
@@ -139,7 +140,8 @@ sha256sums=('SKIP'
             '87d1f0e9d3b4ebdbcffe64d27e7c1f32220cf5d74a681ac1a8dadbc057224378'
             '3ec38f7710402051360a2487c1d3783aff9dae2541e2feafb0074a7e9a618888'
             'b977786a27ecfe12d1211f4c21368ef57738b027b20910c830bfad3ff2879aba'
-            '40d8b815a9325e0d3253c9ac5d402556235a9e43b874fa1c587798b743f3d9c2')
+            '40d8b815a9325e0d3253c9ac5d402556235a9e43b874fa1c587798b743f3d9c2'
+            'c88d57c394640cd85d07a0bb8c602b7c53d0436372b689fe9042562275752252')
 
 # Helper macro to help make tasks easier #
 del_file_exists() {
@@ -212,6 +214,7 @@ prepare() {
   git am --committer-date-is-author-date "${srcdir}"/0055-srandomdev-avoid-warning-about-uninitialized-use.patch
   git am --committer-date-is-author-date "${srcdir}"/0056-squash-Fix-incorrect-path-conversion-trailing-slash.patch
   git am --committer-date-is-author-date "${srcdir}"/0057-Cygwin-Fixing-the-math-behind-rounding-down-ch.stack.patch
+  git am --committer-date-is-author-date "${srcdir}"/0058-Split-.pdb-generation-into-separate-files.patch
 }
 
 build() {
@@ -228,8 +231,10 @@ build() {
     OPTIM="-O2"
   fi
 
-  CFLAGS="$OPTIM -pipe -ggdb"
-  CXXFLAGS="$OPTIM -pipe -ggdb"
+  # Debug settings for cv2pdb based on discussion in this issue:
+  # https://github.com/rainers/cv2pdb/issues/30
+  CFLAGS="$OPTIM -pipe -gdwarf-2 -gstrict-dwarf -fno-omit-frame-pointer"
+  CXXFLAGS="$OPTIM -pipe -gdwarf-2 -gstrict-dwarf -fno-omit-frame-pointer"
 
   "${srcdir}"/msys2-runtime/configure \
     --prefix=/usr \
@@ -257,7 +262,7 @@ package_msys2-runtime() {
 
   mkdir -p "${pkgdir}"/usr
   cp -rf "${srcdir}"/dest/usr/bin "${pkgdir}"/usr/
-  rm -f "${pkgdir}"/usr/bin/msys-2.0.pdb
+  rm -fr "${pkgdir}"/usr/bin/windebug
   rm -f "${pkgdir}"/usr/bin/cyglsa-config
   rm -f "${pkgdir}"/usr/bin/cyglsa.dll
   rm -f "${pkgdir}"/usr/bin/cyglsa64.dll
@@ -275,7 +280,7 @@ package_msys2-runtime-devel() {
   replaces=('libcatgets-devel')
 
   mkdir -p "${pkgdir}"/usr/bin
-  cp -f "${srcdir}"/dest/usr/bin/msys-2.0.pdb "${pkgdir}"/usr/bin/
+  cp -R "${srcdir}"/dest/usr/bin/windebug/. "${pkgdir}"/usr/bin/
   cp -rLf "${srcdir}"/dest/usr/${CHOST}/include "${pkgdir}"/usr/
   rm -f "${pkgdir}"/usr/include/iconv.h
   rm -f "${pkgdir}"/usr/include/unctrl.h
