@@ -1,7 +1,7 @@
 From 8e42fad9c9b2bd1d59b85e27b67a33b9a23d9554 Mon Sep 17 00:00:00 2001
 From: David Rothenberger <d.rothenberger@entomo.com>
 Date: Thu, 7 Nov 2013 23:02:43 +0400
-Subject: [PATCH 10/21] Install perl modules into vendors
+Subject: [PATCH 10/22] Install perl modules into vendors
 
 ---
  Makefile.in | 2 +-

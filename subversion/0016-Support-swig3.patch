@@ -1,7 +1,7 @@
 From c29eb6ea86494dacaa98e6afd427d3899fb243ea Mon Sep 17 00:00:00 2001
 From: David Rothenberger <daveroth@acm.org>
 Date: Mon, 14 Sep 2015 14:39:28 +0300
-Subject: [PATCH 16/21] Support swig3
+Subject: [PATCH 16/22] Support swig3
 
 Fugly hack to fix build with SWIG 3.0.x.  The pre-processor seems to
 expand the %define correctly with only the change to %{..%}, but

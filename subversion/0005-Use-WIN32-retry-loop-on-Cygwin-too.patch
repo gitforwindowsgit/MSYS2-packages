@@ -1,7 +1,7 @@
 From 84e82506f932427d41a1b0f7edb67ef2f5dfe7fd Mon Sep 17 00:00:00 2001
 From: David Rothenberger <daveroth@acm.org>
 Date: Thu, 7 Nov 2013 23:02:43 +0400
-Subject: [PATCH 05/21] Use WIN32 retry loop on Cygwin, too.
+Subject: [PATCH 05/22] Use WIN32 retry loop on Cygwin, too.
 
 ---
  subversion/libsvn_subr/io.c | 22 ++++++++++++++++++++--

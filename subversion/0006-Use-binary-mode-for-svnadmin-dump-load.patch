@@ -1,7 +1,7 @@
 From fd19e8e9cd943a13512ffc509b56d1745c8e538e Mon Sep 17 00:00:00 2001
 From: David Rothenberger <d.rothenberger@entomo.com>
 Date: Thu, 7 Nov 2013 23:02:43 +0400
-Subject: [PATCH 06/21] Use binary mode for svnadmin dump/load.
+Subject: [PATCH 06/22] Use binary mode for svnadmin dump/load.
 
 ---
  subversion/svnadmin/svnadmin.c | 20 ++++++++++++++++++--

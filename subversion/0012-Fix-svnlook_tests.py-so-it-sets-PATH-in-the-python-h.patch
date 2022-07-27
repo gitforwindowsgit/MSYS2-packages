@@ -1,7 +1,7 @@
 From d18c9470c221a07abb41c7e85e433ce3fab0256e Mon Sep 17 00:00:00 2001
 From: David Rothenberger <d.rothenberger@entomo.com>
 Date: Thu, 7 Nov 2013 23:02:43 +0400
-Subject: [PATCH 12/21] Fix svnlook_tests.py, so it sets PATH in the python
+Subject: [PATCH 12/22] Fix svnlook_tests.py, so it sets PATH in the python
  hook.
 
 ---

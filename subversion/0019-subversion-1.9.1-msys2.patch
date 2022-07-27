@@ -1,7 +1,7 @@
 From fadf9eb7ffe8fb8929710f70c4a965f734416166 Mon Sep 17 00:00:00 2001
 From: Alexey Pavlov <alexpux@gmail.com>
 Date: Mon, 14 Sep 2015 14:39:28 +0300
-Subject: [PATCH 19/21] subversion-1.9.1-msys2
+Subject: [PATCH 19/22] subversion-1.9.1-msys2
 
 ---
  Makefile.in                                           | 2 +-

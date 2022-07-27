@@ -1,7 +1,7 @@
 From 32b135c36bae6121be223a8fd0379eb5d4d3f787 Mon Sep 17 00:00:00 2001
 From: David Rothenberger <daveroth@acm.org>
 Date: Wed, 5 Nov 2014 23:30:55 +0300
-Subject: [PATCH 13/21] Fix DSO open, specifically for auth modules like GNOME
+Subject: [PATCH 13/22] Fix DSO open, specifically for auth modules like GNOME
  keyring
 
 support. Thanks to Yaakov for the patch.

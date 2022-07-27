@@ -1,7 +1,7 @@
 From af6280691b7cc13942c888da986d2c419b18ad7e Mon Sep 17 00:00:00 2001
 From: David Rothenberger <d.rothenberger@entomo.com>
 Date: Thu, 7 Nov 2013 23:02:43 +0400
-Subject: [PATCH 11/21] XFAIL some case-sensitive rename and move tests
+Subject: [PATCH 11/22] XFAIL some case-sensitive rename and move tests
 
 ---
  subversion/tests/cmdline/copy_tests.py     | 1 +

@@ -1,7 +1,7 @@
 From 00b4e7f7a8608ded9331651597611c4dc111a784 Mon Sep 17 00:00:00 2001
 From: David Rothenberger <daveroth@acm.org>
 Date: Mon, 14 Sep 2015 14:39:28 +0300
-Subject: [PATCH 17/21] Fix serf config
+Subject: [PATCH 17/22] Fix serf config
 
 ---
  build/ac-macros/serf.m4 | 3 +--

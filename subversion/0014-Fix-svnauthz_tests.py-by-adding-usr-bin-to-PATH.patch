@@ -1,7 +1,7 @@
 From bcc8e13d4dacdaab37d62eb7f3f9b37ea0fa7269 Mon Sep 17 00:00:00 2001
 From: David Rothenberger <daveroth@acm.org>
 Date: Thu, 7 Nov 2013 23:02:43 +0400
-Subject: [PATCH 14/21] Fix svnauthz_tests.py by adding /usr/bin to PATH.
+Subject: [PATCH 14/22] Fix svnauthz_tests.py by adding /usr/bin to PATH.
 
 ---
  subversion/tests/cmdline/svnauthz_tests.py | 2 +-
