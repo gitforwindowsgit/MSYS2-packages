@@ -36,7 +36,7 @@ message 'Building packages'
 for package in "${packages[@]}"; do
     echo "::group::[build] ${package}"
     execute 'Fetch keys' "$DIR/fetch-validpgpkeys.sh"
-    execute 'Building binary' makepkg --noconfirm --noprogressbar --nocheck --syncdeps --rmdeps --cleanbuild
+    execute 'Building binary' makepkg --noconfirm --noprogressbar --check --syncdeps --rmdeps --cleanbuild
     execute 'Building source' makepkg --noconfirm --noprogressbar --allsource
     echo "::endgroup::"
 
