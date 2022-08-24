@@ -34,7 +34,6 @@ source=(https://archive.apache.org/dist/subversion/subversion-${pkgver}.tar.bz2{
         14-fix_svnauthz_tests.patch
         15-XFAIL_case_sensitive_tree_conflict.patch
         16-fix-swig3.patch
-        17-fix-test-link.patch
         18-fix-serf-config.patch
         19-remove-contrib-from-configure.patch
         subversion-1.9.1-msys2.patch
@@ -59,7 +58,6 @@ sha256sums=('c9130e8d0b75728a66f0e7038fc77052e671830d785b5616aad53b4810d3cc28'
             'cad2c464dc3ae6753b1ce2f330d984c97679a52ac1baa411981cfa8c7ebcf312'
             '7f9e60b99a2ec8424f702b5dc07e5b1d37c8eb7d8bd134cc79a7024cb35292d6'
             '8682d9f7da2ba8607ed15daf3beec92e5dacda3a6e4c07baaef8991264eb44cd'
-            '17d1767816b5c7bc0ee8dc4809eb16e40975f335c5cb5b5aadbc2999819f0c42'
             'f61c9b3333d90790a4c6763d81ee05ee5a2029e562c900e92f7526393460181c'
             'a1072514d1be6e2026ae1e2fa24d3bfd97dfbda13b4bd4d89aae0e871b2aae32'
             'c89de3d5272b0196440d6fdf21c14170d0c41702c84fbb273ec87c115633d809'
@@ -106,7 +104,6 @@ prepare() {
   patch -p1 -i ${srcdir}/14-fix_svnauthz_tests.patch
   patch -p1 -i ${srcdir}/15-XFAIL_case_sensitive_tree_conflict.patch
   patch -p1 -i ${srcdir}/16-fix-swig3.patch
-  patch -p1 -i ${srcdir}/17-fix-test-link.patch
   patch -p1 -i ${srcdir}/18-fix-serf-config.patch
   patch -p1 -i ${srcdir}/19-remove-contrib-from-configure.patch
   patch -p1 -i ${srcdir}/subversion-1.9.1-msys2.patch
@@ -114,6 +111,8 @@ prepare() {
   patch -p1 -i ${srcdir}/90-use-copy-instead-symlink.patch
 
   PYTHON=/usr/bin/python2 ./autogen.sh
+  # Hack to allow `libsvn_test-1` to be built
+  sed 's/ -o libsvn_test-1.la / -no-undefined&/' -i build-outputs.mk
 }
 
 build() {
