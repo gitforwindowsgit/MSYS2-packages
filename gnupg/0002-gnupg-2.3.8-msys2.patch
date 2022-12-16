@@ -1,0 +1,141 @@
+From 6f26e43f7f3fd5045fb1ca52fb4b260f69b6bf7b Mon Sep 17 00:00:00 2001
+From: Alexey Pavlov <alexpux@gmail.com>
+Date: Fri, 22 Jun 2018 13:42:12 +0300
+Subject: [PATCH 2/5] gnupg-2.3.8-msys2
+
+---
+ configure.ac   |  3 +++
+ g10/gpg.c      |  4 ++--
+ g10/tdbio.c    |  2 +-
+ scd/apdu.c     | 16 ++++++++--------
+ scd/scdaemon.c |  2 +-
+ 5 files changed, 15 insertions(+), 12 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index b043386..dcb6fc6 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1282,6 +1282,9 @@ case "${host}" in
+     *-*-cygwin*)
+         PRINTABLE_OS_NAME="Cygwin"
+         ;;
++    *-*-msys*)
++        PRINTABLE_OS_NAME="MSYS"
++        ;;
+     i?86-emx-os2 | i?86-*-os2*emx )
+         PRINTABLE_OS_NAME="OS/2"
+         ;;
+diff --git a/g10/gpg.c b/g10/gpg.c
+index 35ffaf3..95d2a80 100644
+--- a/g10/gpg.c
++++ b/g10/gpg.c
+@@ -69,7 +69,7 @@
+ #include "../common/compliance.h"
+ #include "../common/comopt.h"
+ 
+-#if defined(HAVE_DOSISH_SYSTEM) || defined(__CYGWIN__)
++#if defined(HAVE_DOSISH_SYSTEM) || defined(__CYGWIN__) || defined(__MSYS__)
+ #define MY_O_BINARY  O_BINARY
+ #ifndef S_IRGRP
+ # define S_IRGRP 0
+@@ -1643,7 +1643,7 @@ check_permissions (const char *path, int item)
+ 	{
+ 	  if(statbuf.st_uid==getuid())
+ 	    {
+-	      if((statbuf.st_mode & (S_IRWXG|S_IRWXO))==0)
++	      if((statbuf.st_mode & (S_IWGRP|S_IWOTH))==0)
+ 		ret=0;
+ 	      else
+ 		perm=1;
+diff --git a/g10/tdbio.c b/g10/tdbio.c
+index 1b68f77..d7f4f18 100644
+--- a/g10/tdbio.c
++++ b/g10/tdbio.c
+@@ -42,7 +42,7 @@
+ #define ftruncate chsize
+ #endif
+ 
+-#if defined(HAVE_DOSISH_SYSTEM) || defined(__CYGWIN__)
++#if defined(HAVE_DOSISH_SYSTEM) || defined(__CYGWIN__) || defined(__MSYS__)
+ #define MY_O_BINARY  O_BINARY
+ #else
+ #define MY_O_BINARY  0
+diff --git a/scd/apdu.c b/scd/apdu.c
+index e83815b..3805249 100644
+--- a/scd/apdu.c
++++ b/scd/apdu.c
+@@ -64,13 +64,13 @@ struct dev_list {
+                       /* See also MAX_DEVICE in ccid-driver.c.  */
+ 
+ 
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32) || defined(__CYGWIN__) || defined(__MSYS__)
+ #define DLSTDCALL __stdcall
+ #else
+ #define DLSTDCALL
+ #endif
+ 
+-#if defined(__APPLE__) || defined(_WIN32) || defined(__CYGWIN__)
++#if defined(__APPLE__) || defined(_WIN32) || defined(__CYGWIN__) || defined(__MSYS__)
+ typedef unsigned int pcsc_dword_t;
+ #else
+ typedef unsigned long pcsc_dword_t;
+@@ -266,7 +266,7 @@ static npth_mutex_t reader_table_lock;
+ 
+ struct pcsc_io_request_s
+ {
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32) || defined(__CYGWIN__) || defined(__MSYS__)
+   pcsc_dword_t protocol;
+   pcsc_dword_t pci_len;
+ #else
+@@ -1147,28 +1147,28 @@ pcsc_init (void)
+       pcsc_release_context   = dlsym (handle, "SCardReleaseContext");
+       pcsc_cancel            = dlsym (handle, "SCardCancel");
+       pcsc_list_readers      = dlsym (handle, "SCardListReaders");
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32) || defined(__CYGWIN__) || defined(__MSYS__)
+       if (!pcsc_list_readers)
+         pcsc_list_readers    = dlsym (handle, "SCardListReadersA");
+ #endif
+       pcsc_get_status_change = dlsym (handle, "SCardGetStatusChange");
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32) || defined(__CYGWIN__) || defined(__MSYS__)
+       if (!pcsc_get_status_change)
+         pcsc_get_status_change = dlsym (handle, "SCardGetStatusChangeA");
+ #endif
+       pcsc_connect           = dlsym (handle, "SCardConnect");
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32) || defined(__CYGWIN__) || defined(__MSYS__)
+       if (!pcsc_connect)
+         pcsc_connect         = dlsym (handle, "SCardConnectA");
+ #endif
+       pcsc_reconnect         = dlsym (handle, "SCardReconnect");
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32) || defined(__CYGWIN__) || defined(__MSYS__)
+       if (!pcsc_reconnect)
+         pcsc_reconnect       = dlsym (handle, "SCardReconnectA");
+ #endif
+       pcsc_disconnect        = dlsym (handle, "SCardDisconnect");
+       pcsc_status            = dlsym (handle, "SCardStatus");
+-#if defined(_WIN32) || defined(__CYGWIN__)
++#if defined(_WIN32) || defined(__CYGWIN__) || defined(__MSYS__)
+       if (!pcsc_status)
+         pcsc_status          = dlsym (handle, "SCardStatusA");
+ #endif
+diff --git a/scd/scdaemon.c b/scd/scdaemon.c
+index e43769f..b5c190c 100644
+--- a/scd/scdaemon.c
++++ b/scd/scdaemon.c
+@@ -203,7 +203,7 @@ static struct debug_flags_s debug_flags [] =
+ 
+ 
+ /* The card driver we use by default for PC/SC.  */
+-#if defined(HAVE_W32_SYSTEM) || defined(__CYGWIN__)
++#if defined(HAVE_W32_SYSTEM) || defined(__CYGWIN__) || defined(__MSYS__)
+ #define DEFAULT_PCSC_DRIVER "winscard.dll"
+ #elif defined(__APPLE__)
+ #define DEFAULT_PCSC_DRIVER "/System/Library/Frameworks/PCSC.framework/PCSC"
+-- 
+2.39.0.windows.1
+

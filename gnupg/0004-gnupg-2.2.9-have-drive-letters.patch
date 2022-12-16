@@ -1,8 +1,17 @@
+From 4fcc6d8dd0e4c029cc71c29ce648ddc6483dc930 Mon Sep 17 00:00:00 2001
+From: Johannes Schindelin <johannes.schindelin@gmx.de>
+Date: Mon, 16 Aug 2021 17:35:10 +0200
+Subject: [PATCH 4/5] gnupg-2.2.9-have-drive-letters
+
+---
+ configure.ac | 4 ++++
+ 1 file changed, 4 insertions(+)
+
 diff --git a/configure.ac b/configure.ac
-index 2a8372f..daefbc1 100644
+index dcb6fc6..10171a1 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -641,6 +641,10 @@ use_ldapwrapper=yes
+@@ -697,6 +697,10 @@ use_simple_gettext=no
  mmap_needed=yes
  require_pipe_to_unblock_pselect=yes
  case "${host}" in
@@ -13,3 +22,6 @@ index 2a8372f..daefbc1 100644
      *-mingw32*)
          # special stuff for Windoze NT
          ac_cv_have_dev_random=no
+-- 
+2.39.0.windows.1
+

@@ -1,0 +1,35 @@
+From 85c7b7f33eb1c4eef876c322fbd67167df164cfe Mon Sep 17 00:00:00 2001
+From: Johannes Schindelin <johannes.schindelin@gmx.de>
+Date: Fri, 16 Dec 2022 21:19:35 +0100
+Subject: [PATCH 5/5] Skip building the .pdf and info files
+
+That would require ImageMagick and makeinfo...
+
+Signed-off-by: Johannes Schindelin <johannes.schindelin@gmx.de>
+---
+ doc/Makefile.am | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/doc/Makefile.am b/doc/Makefile.am
+index 2d45f37..1f9b0d6 100644
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -55,11 +55,11 @@ EXTRA_DIST = samplekeys.asc mksamplekeys com-certs.pem \
+ 	     gpgv.texi yat2m.c ChangeLog-2011 whats-new-in-2.1.txt \
+              trust-values.texi
+ 
+-BUILT_SOURCES = gnupg-module-overview.png gnupg-module-overview.pdf \
+-                gnupg-card-architecture.png gnupg-card-architecture.pdf \
+-                defsincdate defs.inc
++# BUILT_SOURCES = gnupg-module-overview.png gnupg-module-overview.pdf \
++#                 gnupg-card-architecture.png gnupg-card-architecture.pdf \
++#                 defsincdate defs.inc
+ 
+-info_TEXINFOS = gnupg.texi
++# info_TEXINFOS = gnupg.texi
+ 
+ dist_pkgdata_DATA =  $(helpfiles) $(profiles)
+ 
+-- 
+2.39.0.windows.1
+

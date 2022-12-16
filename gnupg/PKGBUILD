@@ -1,7 +1,7 @@
 # Maintainer: Alexey Pavlov <alexpux@gmail.com>
 
 pkgname=gnupg
-pkgver=2.2.29
+pkgver=2.3.8
 pkgrel=1
 pkgdesc='Complete and free implementation of the OpenPGP standard'
 provides=('dirmngr' "gnupg2=${pkgver}")
@@ -46,14 +46,18 @@ depends=('bzip2'
          'zlib'
         )
 source=("https://gnupg.org/ftp/gcrypt/${pkgname}/${pkgname}-${pkgver}.tar.bz2"{,.sig}
-        'gnupg-2.2.8-msys2.patch'
-        '0001-gnupg-2.2.9-have-drive-letters.patch'
-        '0003-scd-Fix-for-SCARD_IO_REQUEST-structure.patch')
-sha256sums=('39d07cdb4524818f9ebce49294931974af504519e6a7476c52e9d38fc0bd0cc9'
+        '0001-avoid-beta-warning.patch'
+        '0002-gnupg-2.3.8-msys2.patch'
+        '0003-dirmngr-Fix-build-with-no-LDAP-support.patch'
+        '0004-gnupg-2.2.9-have-drive-letters.patch'
+        '0005-Skip-building-the-.pdf-and-info-files.patch')
+sha256sums=('540b7a40e57da261fb10ef521a282e0021532a80fd023e75fb71757e8a4969ed'
             'SKIP'
-            'cb23f1a61fd213c25e85b6ba8afb190b7da14a8cfa59cc56ce82df941db8c3c9'
-            'bf9d6675024fa21003f48fc706a5f80799362b7370db0a6de19be36cf73919a5'
-            'fe8c17bf1ab486f275e270048242d891881f733eda399f4a0acea36033f77df3')
+            'a7039425b3b4c515048caf9af79be7cdab161cbcb99ea6e086f01cf9c5fde6f3'
+            '441d93f035b7f1789300fd7ae413dd5211619a06e54375b3a8acc9d721bef5be'
+            '881ec4f04d6450535e095a7a31ef239d0760204bcc182326171ae88c1c3a534d'
+            'e3cbb5fe8a669b4e1be67c1c08d18da14b129f443eafbc659db07fd290adc540'
+            'fe1216d048a7fd5ebc522fbcab0b7e4b993804601f175bc13eae3e0e4b380818')
 validpgpkeys=('031EC2536E580D8EA286A9F22071B08A33BD3F06'
               'D8692123C4065DEA5E0F3AB5249B39D24F25E3B6'
               '6DAA6E64A76D2840571B4902528897B826403ADA')
@@ -62,9 +66,11 @@ install=${pkgname}.install
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
   sed '/noinst_SCRIPTS = gpg-zip/c sbin_SCRIPTS += gpg-zip' -i tools/Makefile.in
-  patch -p1 -i ${srcdir}/gnupg-2.2.8-msys2.patch
-  patch -p1 -i ${srcdir}/0001-gnupg-2.2.9-have-drive-letters.patch
-  patch -p1 -i ${srcdir}/0003-scd-Fix-for-SCARD_IO_REQUEST-structure.patch
+  patch -p1 -i ${srcdir}/0001-avoid-beta-warning.patch
+  patch -p1 -i ${srcdir}/0002-gnupg-2.3.8-msys2.patch
+  patch -p1 -i ${srcdir}/0003-dirmngr-Fix-build-with-no-LDAP-support.patch
+  patch -p1 -i ${srcdir}/0004-gnupg-2.2.9-have-drive-letters.patch
+  patch -p1 -i ${srcdir}/0005-Skip-building-the-.pdf-and-info-files.patch
 
   autoreconf -fiv
 
