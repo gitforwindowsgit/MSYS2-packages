@@ -51,6 +51,9 @@ build() {
     --with-ca-bundle=/usr/ssl/certs/ca-bundle.crt \
     ac_cv_func_setmode=yes
 
+  # Use MSYS2's libtool
+  case "$CARCH" in i686) cp /usr/bin/libtool ./;; esac
+
   make
   make DESTDIR="${srcdir}/dest" install
 }
